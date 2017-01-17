@@ -51,24 +51,46 @@ if(!empty($_POST['createWp'])){
     $vhost = file_get_contents("/etc/apache2/sites-available/000-default.conf");
     exec("sudo service apache2 reload");
   }
-  if(isset($_POST['redirect_url'])){
+  /*if(isset($_POST['redirect_url'])){
     exec("wp rewrite structure '/%postname%/'");
     exec('sudo a2enmod rewrite');
     exec("sudo service apache2 reload");
+  }*/
+
+  // Suppression des anciens plugins de base
+  if(isset($_POST['rmv_old_plugins'])){
+    exec("wp plugin uninstall akismet");  // Suppression du plugin 'akismet'
+    exec("wp plugin uninstall hello-dolly");  // Suppression du plugin 'hello-dolly'
   }
+
+  // Installation des plugins sélectionnés
+  if(!empty($_POST['plugins_to_install'])){
+    $plugins_to_install = explode(',',$_POST['plugins_to_install']);
+    foreach($plugins_to_install as $p){
+      exec('wp plugin install '.$p.' --activate');
+    }
+  }
+
   $site_cree = true;
 
+}else if(isset($_GET['search']) && $_GET['search'] == 'plugins'){
+    chdir('./generated_sites/wp-admin');  // Je me mets dans un dossier Wordpress
+    $plugins_search = exec('wp plugin search '.$_GET['label'].' --per-page=20 --format=json');
+    echo $plugins_search;
 }
+
 ?>
 
-<?php if($site_cree): ?>
-  <div>Votre site a bien été créé.</div>
-  <!--<div>Pensez à redemarrer Apache2</div>-->
-  <div>
-    <button type="button" name="site_front"><a target="_blank" href="/">Voir mon site</a></button>
-    <button type="button" name="site_back"><a target="_blank" href="/wp-admin/">Aller côté administration</a></button>
-  </div>
-<?php else: ?>
-  <div>Votre site n'a pas pu être créé !</div>
-  <div><a href="./index.php">Revenir</a></div>
+<?php if(!empty($_POST['createWp'])): ?>
+  <?php if($site_cree): ?>
+    <div>Votre site a bien été créé.</div>
+    <!--<div>Pensez à redemarrer Apache2</div>-->
+    <div>
+      <button type="button" name="site_front"><a target="_blank" href="/">Voir mon site</a></button>
+      <button type="button" name="site_back"><a target="_blank" href="/wp-admin/">Aller côté administration</a></button>
+    </div>
+  <?php else: ?>
+    <div>Votre site n'a pas pu être créé !</div>
+    <div><a href="./index.php">Revenir</a></div>
+  <?php endif; ?>
 <?php endif; ?>
