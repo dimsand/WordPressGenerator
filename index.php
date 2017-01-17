@@ -1,13 +1,3 @@
-<?php
-
-function debug($debug){
-  echo "<pre>";
-  var_dump($debug);
-  echo "</pre>";
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -59,7 +49,9 @@ function debug($debug){
             <label for="site_path">Nom du dossier du site</label>
             <input type="text" name="site_path" id="site_path" value=""></br></br>
             <label for="edit_vhost">Modification du Vhost</label>
-            <input type="checkbox" name="edit_vhost" id="edit_vhost" value="1" checked="checked">
+            <input type="checkbox" name="edit_vhost" id="edit_vhost" value="1" checked="checked"></br></br>
+            <label for="redirect_url">Activer la redirection d'URL (pour les liens en http://192.168.33.10/sample-post/)</label>
+            <input type="checkbox" name="redirect_url" id="redirect_url" value="1" checked="checked">
           </fieldset>
           <input type="submit" name="createWp" value="Créer">
         </form>

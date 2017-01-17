@@ -38,8 +38,8 @@ if(!empty($_POST['createWp'])){
     }
     $remplacement = '
     ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html/'.$site_path.'
-    <Directory /var/www/html/'.$site_path.'>
+    DocumentRoot /var/www/html/TP1/'.$site_path.'
+    <Directory /var/www/html/TP1/'.$site_path.'>
       Options Indexes FollowSymlinks
       AllowOverride All
       Require all granted
@@ -49,6 +49,12 @@ if(!empty($_POST['createWp'])){
     ';
     file_put_contents("/etc/apache2/sites-available/000-default.conf", $remplacement);
     $vhost = file_get_contents("/etc/apache2/sites-available/000-default.conf");
+    exec("sudo service apache2 reload");
+  }
+  if(isset($_POST['redirect_url'])){
+    exec("wp rewrite structure '/%postname%/'");
+    exec('sudo a2enmod rewrite');
+    exec("sudo service apache2 reload");
   }
   $site_cree = true;
 
@@ -57,9 +63,10 @@ if(!empty($_POST['createWp'])){
 
 <?php if($site_cree): ?>
   <div>Votre site a bien été créé.</div>
+  <!--<div>Pensez à redemarrer Apache2</div>-->
   <div>
-    <button type="button" name="site_front"><a target="_blank" href="./generated_sites/<?=$site_path?>">Voir mon site</a></button>
-    <button type="button" name="site_back"><a target="_blank" href="./generated_sites/<?=$site_path?>/wp-admin/">Aller côté administration</a></button>
+    <button type="button" name="site_front"><a target="_blank" href="/">Voir mon site</a></button>
+    <button type="button" name="site_back"><a target="_blank" href="/wp-admin/">Aller côté administration</a></button>
   </div>
 <?php else: ?>
   <div>Votre site n'a pas pu être créé !</div>
