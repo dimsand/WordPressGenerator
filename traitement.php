@@ -7,6 +7,7 @@ function debug($debug){
 
 $site_cree = false;
 
+// GESTION DU FORMULAIRE EN ENTIER
 if(!empty($_POST['createWp'])){
   //debug($_POST);
 
@@ -48,7 +49,7 @@ if(!empty($_POST['createWp'])){
     CustomLog ${APACHE_LOG_DIR}/access.log combined
     ';
     file_put_contents("/etc/apache2/sites-available/000-default.conf", $remplacement);
-    $vhost = file_get_contents("/etc/apache2/sites-available/000-default.conf");
+    //$vhost = file_get_contents("/etc/apache2/sites-available/000-default.conf");
     exec("sudo service apache2 reload");
   }
   /*if(isset($_POST['redirect_url'])){
@@ -60,7 +61,7 @@ if(!empty($_POST['createWp'])){
   // Suppression des anciens plugins de base
   if(isset($_POST['rmv_old_plugins'])){
     exec("wp plugin uninstall akismet");  // Suppression du plugin 'akismet'
-    exec("wp plugin uninstall hello-dolly");  // Suppression du plugin 'hello-dolly'
+    exec("wp plugin uninstall hello");  // Suppression du plugin 'hello-dolly'
   }
 
   // Installation des plugins sélectionnés
@@ -73,7 +74,10 @@ if(!empty($_POST['createWp'])){
 
   $site_cree = true;
 
-}else if(isset($_GET['search']) && $_GET['search'] == 'plugins'){
+  }
+
+// GESTION DU GETJSON EN AJAX POUR LA RECHERCHE DES PLUGINS
+else if(isset($_GET['search']) && $_GET['search'] == 'plugins'){
     chdir('./generated_sites/wp-admin');  // Je me mets dans un dossier Wordpress
     $plugins_search = exec('wp plugin search '.$_GET['label'].' --per-page=20 --format=json');
     echo $plugins_search;

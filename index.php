@@ -28,6 +28,16 @@
         border: solid green 1px;
         font-weight: bold;
       }
+      .preview_theme{
+        width: 200px;
+      }
+      .table-theme{
+        width: 100%;
+      }
+      .table-theme td{
+        text-align: center;
+        width: 33%;
+      }
     </style>
   </head>
   <body>
@@ -88,11 +98,28 @@
             <div class="result result-plugins"></div>
             <input type="hidden" id="plugins_to_install" name="plugins_to_install" value="">
           </fieldset>
-          <!--<fieldset>
+          <fieldset>
             <legend>Thèmes</legend>
+            <table class="table-theme">
+              <tr>
+                <td>ResponsiveBoat</td>
+                <td>Writr</td>
+                <td>Serene</td>
+              </tr>
+              <tr>
+                <td><img class="preview_theme" src="./media/responsive-boat.png" alt="ResponsiveBoat"></td>
+                <td><img class="preview_theme" src="./media/writr.png" alt="Writr"></td>
+                <td><img class="preview_theme" src="./media/serene.png" alt="Serene"></td>
+              </tr>
+              <tr>
+                <td><input type="radio" name="theme" value="ResponsiveBoat"></td>
+                <td><input type="radio" name="theme" value="Writr"></td>
+                <td><input type="radio" name="theme" value="Serene"></td>
+              </tr>
+            </table>
             <label for="rmv_old_plugins">Supprimer les plugins existants</label>
             <input type="checkbox" name="rmv_old_plugins" id="rmv_old_plugins" value="1" checked="checked">
-          </fieldset>-->
+          </fieldset>
           <input type="submit" name="createWp" value="Créer">
         </form>
       <?php endif; ?>
