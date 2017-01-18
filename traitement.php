@@ -72,6 +72,11 @@ if(!empty($_POST['createWp'])){
     }
   }
 
+  // Installation et activation du theme
+  /*if(!empty($_POST['theme'])){
+    exec('wp theme install twentysixteen --activate');
+  }*/
+
   $site_cree = true;
 
   }

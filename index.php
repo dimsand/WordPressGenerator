@@ -38,6 +38,11 @@
         text-align: center;
         width: 33%;
       }
+      .loader-plugins{
+        display: none;
+        text-align: center;
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
@@ -96,6 +101,7 @@
             <label for="label_plugin_search">Installer un nouveau plugin</label>
             <input type="text" name="label_plugin_search" id="label_plugin_search" placeholder="Rechercher un plugin" value=""><button type="button" name="button" id="search_plugin">Rechercher</button>
             <div class="result result-plugins"></div>
+            <div class="loader-plugins"><img src="./media/squares.gif" alt="" height="70"></div>
             <input type="hidden" id="plugins_to_install" name="plugins_to_install" value="">
           </fieldset>
           <fieldset>
@@ -107,14 +113,14 @@
                 <td>Serene</td>
               </tr>
               <tr>
-                <td><img class="preview_theme" src="./media/responsive-boat.png" alt="ResponsiveBoat"></td>
-                <td><img class="preview_theme" src="./media/writr.png" alt="Writr"></td>
-                <td><img class="preview_theme" src="./media/serene.png" alt="Serene"></td>
+                <td><label for="ResponsiveBoat"><img class="preview_theme" src="./media/responsive-boat.png" alt="ResponsiveBoat"></label></td>
+                <td><label for="Writr"><img class="preview_theme" src="./media/writr.png" alt="Writr"></label></td>
+                <td><label for="Serene"><img class="preview_theme" src="./media/serene.png" alt="Serene"></label></td>
               </tr>
               <tr>
-                <td><input type="radio" name="theme" value="ResponsiveBoat"></td>
-                <td><input type="radio" name="theme" value="Writr"></td>
-                <td><input type="radio" name="theme" value="Serene"></td>
+                <td><input type="radio" name="theme" id="ResponsiveBoat" value="ResponsiveBoat"></td>
+                <td><input type="radio" name="theme" id="Writr" value="Writr"></td>
+                <td><input type="radio" name="theme" id="Serene" value="Serene"></td>
               </tr>
             </table>
             <label for="rmv_old_plugins">Supprimer les plugins existants</label>
@@ -131,6 +137,7 @@
 
     var search_plugin = "";
     $(document).on('click','#search_plugin',function(){
+      $('.loader-plugins').show();
       var label = $('#label_plugin_search').val();
       if(search_plugin != label){
         search_plugin = label;
@@ -138,6 +145,7 @@
         $.getJSON( "traitement.php?search=plugins&label="+label, function( json ) {
           $.each( json, function( i, item ) {
             $('.result-plugins').append('<div data="'+item.slug+'" class="item-plugin">'+item.name+'<br><span class="slug_label">'+item.slug+'</span></div>');
+            $('.loader-plugins').hide();
             $('.selected').show();
           });
         });

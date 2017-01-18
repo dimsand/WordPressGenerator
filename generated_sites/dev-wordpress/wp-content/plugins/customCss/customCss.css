@@ -1,0 +1,32 @@
+.site-header{
+  background-color: #333!important;
+}
+.site-header a{
+  color: #333!important;
+}
+.entry-header{
+  margin-top: 15px;
+}
+p>img{
+  border: solid 3px white;
+  border-radius: 5px;
+}
+
+.button, .submit{
+  border: solid #82878c 3px;
+  background-color: #dedede!important;
+  padding: 5px;
+  color: #32373c!important;
+}
+
+.site-content{
+  background-color: #fefefe!important;
+  color: #333!important;
+}
+
+.post-custom{
+  border: solid #82878c 3px;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #eae9e9;
+}
