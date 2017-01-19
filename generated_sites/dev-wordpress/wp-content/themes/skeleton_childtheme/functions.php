@@ -64,6 +64,12 @@ function init_remove_support(){
   }
 }
 
+// On enlève la version de wordpress dans le code html du site
+remove_action('wp_head','wp_generator');
+
+// On enlève les messages d'erreur pour les mauvais logins de connexion
+add_filter('login_errors', create_function('$a',"return 'La connexion ne peut pas se faire';"));
+
 // For completely overriding the theme options and removal of inline styles
 // You must dequeue custom.css and redeclare these styles in your child theme
 //
